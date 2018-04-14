@@ -3,10 +3,13 @@ class $hell {
     static get pwd() {
         return this.pathHistory.join('/');
     }
+    static initialize() {
+        this.$0 = document.body;
+        this.pathHistory = [''];
+    }
     static cd(path) {
         if (!this.$0 || path.startsWith('/')) {
-            this.$0 = document.body;
-            this.pathHistory = [''];
+            this.initialize();
         }
         const splitPath = path.split('/');
         splitPath.forEach(token => {
@@ -26,16 +29,62 @@ class $hell {
                 idx = parseInt(indxString);
                 nonIndexedToken = token.substring(0, posOfOpen);
             }
-            let context = this.$0;
-            if (context.shadowRoot)
-                context = context.shadowRoot;
-            const children = this.$0.querySelectorAll(':scope > ' + nonIndexedToken);
-            this.$0 = children[idx];
+            //const children = this.$0.querySelectorAll(':scope > ' + nonIndexedToken);
+            // this.$0.childNodes
+            const matchingNodes = [];
+            this.$0.childNodes.forEach((child) => {
+                if (child.matches && child.matches(nonIndexedToken)) {
+                    matchingNodes.push(child);
+                }
+            });
+            this.$0 = matchingNodes[idx];
         });
         return this.$0;
     }
-    static ls() {
-        //cshell
+    // static getContext(){
+    //     let context : HTMLElement | ShadowRoot = this.$0;
+    //     if(context.shadowRoot) context = context.shadowRoot;
+    //     return context;
+    // }
+    static get ls() {
+        if (!this.$0) {
+            this.initialize();
+        }
+        const result = [];
+        const matchingNodeNames = {};
+        this.$0.childNodes.forEach((node) => {
+            if (!node.matches)
+                return;
+            const nodeName = node.nodeName.toLowerCase();
+            if (node.id) {
+                result.push(nodeName + '#' + node.id);
+                //return;
+            }
+            if (!matchingNodeNames[nodeName]) {
+                matchingNodeNames[nodeName] = [];
+            }
+            matchingNodeNames[nodeName].push(node);
+        });
+        for (const key in matchingNodeNames) {
+            const matchingNodes = matchingNodeNames[key];
+            if (matchingNodes.length === 1) {
+                const matchingNode = matchingNodes[0];
+                if (!matchingNode.id) {
+                    result.push(key);
+                    continue;
+                }
+            }
+            const test = matchingNodes.filter(node => !node.id);
+            if (test.length === 0)
+                continue;
+            for (let i = 0, ii = matchingNodes.length; i < ii; i++) {
+                const matchingNode = matchingNodes[i];
+                if (matchingNode.id)
+                    continue;
+                result.push(key + '[' + i + ']');
+            }
+        }
+        return result;
     }
 }
 //# sourceMappingURL=$hell.js.map
