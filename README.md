@@ -11,3 +11,5 @@ $hell.ls lists all the nodes in your current context.  When the page first loads
 $hell.cd(path) allows you to move the context into children (or ancestors if you start the path with ..)
 
 $hell.properties lists the values of all the Polymer properties of the web component. 
+
+$hell.pwd displays the current "directory" of your element context.
