@@ -30,9 +30,8 @@ class $hell{
                 nonIndexedToken = token.substring(0, posOfOpen);
             }
             //const children = this.$0.querySelectorAll(':scope > ' + nonIndexedToken);
-            // this.$0.childNodes
             const matchingNodes = [];
-            this.$0.childNodes.forEach((child : HTMLElement) =>{
+            this.children.forEach((child : HTMLElement) =>{
                 if(child.matches && child.matches(nonIndexedToken)){
                     matchingNodes.push(child);
                 }
@@ -48,13 +47,21 @@ class $hell{
     //     if(context.shadowRoot) context = context.shadowRoot;
     //     return context;
     // }
+    static get children(){
+        switch(this.$0.nodeName){
+            case 'IFRAME':
+                return (this.$0 as HTMLIFrameElement).contentWindow.document.body.childNodes;
+            default:
+                return this.$0.childNodes;
+        }
+    }
     static get ls(){
         if(!this.$0){
             this.initialize();
         }
         const result = [];
         const matchingNodeNames: {[key: string] : HTMLElement[]} = {};
-        this.$0.childNodes.forEach((node: HTMLElement) =>{
+        this.children.forEach((node: HTMLElement) =>{
             if(!node.matches) return;
             const nodeName = node.nodeName.toLowerCase();
             if(node.id){

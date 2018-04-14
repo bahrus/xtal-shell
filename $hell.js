@@ -30,9 +30,8 @@ class $hell {
                 nonIndexedToken = token.substring(0, posOfOpen);
             }
             //const children = this.$0.querySelectorAll(':scope > ' + nonIndexedToken);
-            // this.$0.childNodes
             const matchingNodes = [];
-            this.$0.childNodes.forEach((child) => {
+            this.children.forEach((child) => {
                 if (child.matches && child.matches(nonIndexedToken)) {
                     matchingNodes.push(child);
                 }
@@ -46,13 +45,21 @@ class $hell {
     //     if(context.shadowRoot) context = context.shadowRoot;
     //     return context;
     // }
+    static get children() {
+        switch (this.$0.nodeName) {
+            case 'IFRAME':
+                return this.$0.contentWindow.document.body.childNodes;
+            default:
+                return this.$0.childNodes;
+        }
+    }
     static get ls() {
         if (!this.$0) {
             this.initialize();
         }
         const result = [];
         const matchingNodeNames = {};
-        this.$0.childNodes.forEach((node) => {
+        this.children.forEach((node) => {
             if (!node.matches)
                 return;
             const nodeName = node.nodeName.toLowerCase();
