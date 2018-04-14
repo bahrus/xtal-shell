@@ -86,5 +86,23 @@ class $hell {
         }
         return result;
     }
+    static get properties() {
+        const tagName = this.$0.tagName.toLowerCase();
+        const ce = customElements.get(tagName);
+        if (!ce) {
+            console.log('props only provides information for custom elements.');
+            return;
+        }
+        //if(!propertiesAlias) propertiesAlias = 'properties';
+        const props = ce['properties'];
+        if (!props) {
+            console.log('No properties found');
+        }
+        const debugObj = {};
+        for (const key in props) {
+            debugObj[key] = this.$0[key];
+        }
+        return debugObj;
+    }
 }
 //# sourceMappingURL=$hell.js.map
