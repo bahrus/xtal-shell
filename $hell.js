@@ -105,7 +105,9 @@ class $hell {
         if (!props) {
             console.log('No properties found');
         }
-        const debugObj = {};
+        const debugObj = {
+            constructor: ce,
+        };
         for (const key in props) {
             debugObj[key] = this.$0[key];
         }
