@@ -28,4 +28,10 @@ with($hell){
     cd('demo-snippet/iron-list');
     pwd;
 }
-``` 
+```
+
+If you right-click on an element in Chrome (or Edge outside any shadow dom), this puts the element into a varible $0 available from the console.  You can get the full path to the element by:
+
+```JavaScript
+$hell.getFullPath($0);
+```
