@@ -168,9 +168,16 @@ class $hell {
             const path = this.getPathFromParent(ancestor);
             reversePathArray.push(path);
             ancestor = ancestor.parentElement;
+            if (ancestor.tagName === 'BODY') {
+                const fe = ancestor.ownerDocument.defaultView.frameElement;
+                if (fe) {
+                    ancestor = fe;
+                }
+            }
         }
         reversePathArray.reverse();
         return '/' + reversePathArray.join('/');
     }
 }
+window['$hell'] = $hell;
 //# sourceMappingURL=$hell.js.map
