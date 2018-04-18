@@ -164,7 +164,7 @@ class $hell{
 
     static getPathFromParent(el: HTMLElement){
         const parent = this.getParent(el);
-        const list = this.getList(parent.childNodes);
+        const list = this.getList(this.getChildren(parent));
         let path = '';
         list.forEach(token =>{
             const testEl = this.getChildFromSinglePath(parent, token);
