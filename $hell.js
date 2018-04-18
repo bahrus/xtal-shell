@@ -149,8 +149,15 @@ class $hell {
         }
         return debugObj;
     }
+    static getParent(el) {
+        const parent = el.parentNode;
+        if (parent.nodeType === 11) {
+            return parent['host'];
+        }
+        return parent;
+    }
     static getPathFromParent(el) {
-        const parent = el.parentElement;
+        const parent = this.getParent(el);
         const list = this.getList(parent.childNodes);
         let path = '';
         list.forEach(token => {
@@ -167,7 +174,7 @@ class $hell {
         while (ancestor.tagName !== "BODY") {
             const path = this.getPathFromParent(ancestor);
             reversePathArray.push(path);
-            ancestor = ancestor.parentElement;
+            ancestor = this.getParent(ancestor);
             if (ancestor.tagName === 'BODY') {
                 const fe = ancestor.ownerDocument.defaultView.frameElement;
                 if (fe) {
