@@ -26,7 +26,7 @@ Paths look like directory paths (with the slash delimiter), and is limited to ta
 $hell.cd('div/demo-snippet/iron-list#myID/div[7]')
 ```
 
-**$hell.properties** lists the values of all the Polymer properties of the web component. 
+**$hell.properties** lists the values of all the Polymer properties of the web component. It also outputs the constructor, allowing you to right click and jump to the code behind the web componnt.
 
 **$hell.pwd** displays the current "directory" of your element context.
 
