@@ -164,13 +164,13 @@ class $hell {
     static getFullPath(el) {
         const reversePathArray = [];
         let ancestor = el;
-        while (ancestor.tagName !== "HTML") {
+        while (ancestor.tagName !== "BODY") {
             const path = this.getPathFromParent(ancestor);
             reversePathArray.push(path);
             ancestor = ancestor.parentElement;
         }
         reversePathArray.reverse();
-        return reversePathArray.join('/');
+        return '/' + reversePathArray.join('/');
     }
 }
 //# sourceMappingURL=$hell.js.map
