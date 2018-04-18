@@ -1,6 +1,16 @@
 # xtal-shell
 
-$hell.js helps with debugging web components (and creating automated regression testing for applications built with them).
+$hell.js helps with debugging web components, and for creating automated regression testing for applications built with them.
+
+Although it may not appear this way at the moment, I believe the topic of automated regression tests will become an area where web components will shine quite brightly.  This library is intended to bring that day closer.  The reason I think this is that 1)  By relying on native features to create semantic markup, the path tests will be much less "random."  The ability to define ID's within a component, that doesn't need to be unique for other components, will allow developers to specify the functionality of common tags (***cough***div***cough***) in a uniform, consistent way.
+
+The immediate stumbling block is that there is no standard selectors for piercing Shadow DOM.  
+
+The approach we take is to define a syntax where there is one and only way to describe how to locate a node.  It should be easy to select a HTML Node with chrome dev tools (for example) and generate that unique path.
+
+A noteworthy feature of the approach outlined here is that we will generate tests that err on the side of caution, i.e better to flag unexpected things, rather than assume everything is okay.   The path to elements will be very specific.  If the layout of a page changes in any significant way, unit tests built using these paths will need to be adjusted.
+
+You will need to include a reference to the file $hell.js in your web site.  It is advisable to not include this file (at least unconditionally) in production, simply because it adds a few KB to the footprint.
 
 The JavaScript file $hell.js provides a static class $hell, which gets put into global scope.
 
