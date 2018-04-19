@@ -71,10 +71,19 @@ class $hell{
     static getChildren(parent: HTMLElement){
         switch(parent.nodeName){
             case 'IFRAME':
-                return (this.$0 as HTMLIFrameElement).contentWindow.document.body.childNodes;
+                return <any>(this.$0 as HTMLIFrameElement).contentWindow.document.body.childNodes as HTMLElement[];
             default:
-                if(parent.childNodes.length === 0 && parent.shadowRoot) return parent.shadowRoot.childNodes;
-                return parent.childNodes;
+                const publicChildren = parent.childNodes;
+                const returnObj: HTMLElement[] = [];
+                if(parent.shadowRoot) {
+                    parent.shadowRoot.childNodes.forEach((node: HTMLElement) =>{
+                        returnObj.push(node);
+                    });
+                }
+                parent.childNodes.forEach(node =>{
+                    returnObj.push(node as HTMLElement);
+                })
+                return returnObj;
         }        
     }
     static get children(){
@@ -87,7 +96,7 @@ class $hell{
         // }
         return this.getChildren(this.$0);
     }
-    static getList(children: NodeListOf<Node & ChildNode>){
+    static getList(children: HTMLElement[]){
         const result = [];
         const matchingNodeNames: {[key: string] : HTMLElement[]} = {};
         children.forEach((node: HTMLElement) =>{
