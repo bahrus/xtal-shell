@@ -47,3 +47,19 @@ If you right-click on an element in Chrome (or Edge outside any shadow dom), thi
 ```JavaScript
 $hell.getFullPath($0);
 ```
+
+You can also set the context, bypassing any cd steps:
+
+$hell.$0 = $0
+
+## Instructions to load.
+
+Open a web site, any site, just  open a site.
+
+For example, you tube (https://youtube.com)
+
+Open the dev tools, go to the console window and type:
+
+import('https://cdn.jsdelivr.net/npm/xtal-shell/$hell.js')
+
+Now you can inspect / navigate the site as described above.
