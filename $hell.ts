@@ -1,4 +1,3 @@
-//declare var $0
 class $hell{
     static $0: HTMLElement;
     static pathHistory: string[];

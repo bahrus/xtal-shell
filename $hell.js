@@ -1,4 +1,3 @@
-//declare var $0
 class $hell {
     static get pwd() {
         return this.pathHistory.join('/');
