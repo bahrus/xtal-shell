@@ -147,6 +147,7 @@ class $hell{
     }
 
     static getProperties(el: HTMLElement){
+        this.$0 = el;
         const tagName = el.tagName.toLowerCase();
         const ce = customElements.get(tagName);
         if(!ce){
