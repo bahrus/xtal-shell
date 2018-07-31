@@ -1,4 +1,9 @@
 class $hell{
+    static DASH_TO_CAMEL = /-[a-z]/g;
+
+    static dashToCamelCase(dash) {
+        return dash.replace($hell.DASH_TO_CAMEL, m =>m[1].toUpperCase());
+    }
     static $0: HTMLElement;
     static pathHistory: string[];
     static get pwd(){
@@ -149,7 +154,14 @@ class $hell{
             return;
         }
         //if(!propertiesAlias) propertiesAlias = 'properties';
-        const props = ce['properties'];
+        const props = ce['properties'] || {};
+        const observedAttributes = ce['observedAttributes'] as string[];
+        if(observedAttributes){
+            observedAttributes.forEach(attrib =>{
+                const camelCase = this.dashToCamelCase(attrib);
+                ce[camelCase] = true;
+            })
+        }
         if(!props){
             console.log('No properties found');
         }

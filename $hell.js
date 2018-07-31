@@ -1,4 +1,7 @@
 class $hell {
+    static dashToCamelCase(dash) {
+        return dash.replace($hell.DASH_TO_CAMEL, m => m[1].toUpperCase());
+    }
     static get pwd() {
         return this.pathHistory.join('/');
     }
@@ -144,7 +147,14 @@ class $hell {
             return;
         }
         //if(!propertiesAlias) propertiesAlias = 'properties';
-        const props = ce['properties'];
+        const props = ce['properties'] || {};
+        const observedAttributes = ce['observedAttributes'];
+        if (observedAttributes) {
+            observedAttributes.forEach(attrib => {
+                const camelCase = this.dashToCamelCase(attrib);
+                ce[camelCase] = true;
+            });
+        }
         if (!props) {
             console.log('No properties found');
         }
@@ -193,5 +203,6 @@ class $hell {
         return '/' + reversePathArray.join('/');
     }
 }
+$hell.DASH_TO_CAMEL = /-[a-z]/g;
 window['$hell'] = $hell;
 //# sourceMappingURL=$hell.js.map
