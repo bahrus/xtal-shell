@@ -152,7 +152,7 @@ class $hell {
         if (observedAttributes) {
             observedAttributes.forEach(attrib => {
                 const camelCase = this.dashToCamelCase(attrib);
-                ce[camelCase] = true;
+                props[camelCase] = true;
             });
         }
         if (!props) {
