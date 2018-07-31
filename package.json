@@ -1,6 +1,6 @@
 {
   "name": "xtal-shell",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Assist with automated regression testing of web pages containing shadow DOM and iFrames ",
   "main": "$hell.js",
   "repository": "https://github.com/bahrus/xtal-shell",
