@@ -166,7 +166,13 @@ class $hell {
             constructor: ce,
         };
         for (const key in props) {
-            debugObj[key] = this.$0[key];
+            const underScore = '_' + key;
+            if (!this.$0[key] && this.$0[underScore]) {
+                debugObj[underScore] = this.$0[underScore];
+            }
+            else {
+                debugObj[key] = this.$0[key];
+            }
         }
         return debugObj;
     }
