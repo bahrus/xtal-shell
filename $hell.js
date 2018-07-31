@@ -156,6 +156,9 @@ class $hell {
                 props[camelCase] = true;
             });
         }
+        Object.getOwnPropertyNames(ce).map(name => name.replace('_', '')).forEach(name => {
+            props[name] = true;
+        });
         if (!props) {
             console.log('No properties found');
         }
