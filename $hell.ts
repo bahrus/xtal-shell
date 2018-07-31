@@ -163,7 +163,7 @@ class $hell{
                 props[camelCase] = true;
             })
         }
-        Object.getOwnPropertyNames(ce).map(name => name.replace('_', '')).forEach(name => {
+        Object.getOwnPropertyNames(el).map(name => name.replace('_', '')).forEach(name => {
             props[name] = true;
         })
         if(!props){
