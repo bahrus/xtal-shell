@@ -5,5 +5,8 @@
   "main": "$hell.js",
   "repository": "https://github.com/bahrus/xtal-shell",
   "author": "bahrus <anderson.bruce.b@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "jiife": "^0.0.4"
+  }
 }
