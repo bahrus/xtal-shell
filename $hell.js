@@ -1,3 +1,4 @@
+import { getChildren } from './getChildren.js';
 import { getChildFromSinglePath } from './getChildFromSinglePath.js';
 import { cd } from './cd.js';
 import { dashToCamelCase } from './dashToCamelCase.js';
@@ -16,24 +17,6 @@ class $hell {
         this.$0 = cd(this.$0, path, this.pathHistory);
         return this.$0;
     }
-    static getChildren(parent) {
-        switch (parent.nodeName) {
-            case 'IFRAME':
-                return this.$0.contentWindow.document.body.childNodes;
-            default:
-                const publicChildren = parent.childNodes;
-                const returnObj = [];
-                if (parent.shadowRoot) {
-                    parent.shadowRoot.childNodes.forEach((node) => {
-                        returnObj.push(node);
-                    });
-                }
-                parent.childNodes.forEach(node => {
-                    returnObj.push(node);
-                });
-                return returnObj;
-        }
-    }
     static get children() {
         // switch(this.$0.nodeName){
         //     case 'IFRAME':
@@ -42,7 +25,7 @@ class $hell {
         //         if(this.$0.childNodes.length === 0 && this.$0.shadowRoot) return this.$0.shadowRoot.childNodes;
         //         return this.$0.childNodes;
         // }
-        return this.getChildren(this.$0);
+        return getChildren(this.$0);
     }
     static getList(children) {
         const result = [];
@@ -136,7 +119,7 @@ class $hell {
     }
     static getPathFromParent(el) {
         const parent = this.getParent(el);
-        const list = this.getList(this.getChildren(parent));
+        const list = this.getList(getChildren(parent));
         let path = '';
         list.forEach(token => {
             const testEl = getChildFromSinglePath(parent, token);

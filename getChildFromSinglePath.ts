@@ -1,3 +1,5 @@
+import {getChildren} from './getChildren.js';
+
 export function getChildFromSinglePath(el: HTMLElement, token: string){
     let idx = 0;
     let nonIndexedToken = token;
@@ -14,11 +16,10 @@ export function getChildFromSinglePath(el: HTMLElement, token: string){
     }
     //const children = this.$0.querySelectorAll(':scope > ' + nonIndexedToken);
     const matchingNodes = [];
-    this.getChildren(el).forEach((child : HTMLElement) =>{
+    getChildren(el).forEach((child : HTMLElement) =>{
         if(child.matches && child.matches(nonIndexedToken)){
             matchingNodes.push(child);
         }
     })
-
     return  matchingNodes[idx] as HTMLElement;
 }
