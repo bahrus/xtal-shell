@@ -54,7 +54,7 @@ class $hell{
         if(token === '..'){
             // this.$0 = this.$0.parentElement;
             // return this.$0;
-            return el.parentElement || e.parentNode;
+            return e.parentNode;
         }
         if(token.endsWith(']')){
             const posOfOpen = token.indexOf('[');
