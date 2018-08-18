@@ -1,11 +1,11 @@
-class $hell{
-    static DASH_TO_CAMEL = /-[a-z]/g;
+import {getChildFromSinglePath} from './getChildFromSinglePath.js';
+import {cd} from './cd.js';
+import {dashToCamelCase} from './dashToCamelCase.js';
 
-    static dashToCamelCase(dash) {
-        return dash.replace($hell.DASH_TO_CAMEL, m =>m[1].toUpperCase());
-    }
+class $hell{
+
     static $0: HTMLElement;
-    static pathHistory: string[];
+    static pathHistory: string[] = [];
     static get pwd(){
         return this.pathHistory.join('/');
     }
@@ -16,62 +16,12 @@ class $hell{
     static cd(path: string){
         if(!this.$0 || path.startsWith('/')){
             this.initialize();
-        } 
-        const splitPath = path.split('/');
-        splitPath.forEach(token =>{
-            if(!token) return;
-            this.pathHistory.push(token);
-            // let idx = 0;
-            // let nonIndexedToken = token;
-            // if(token === '..'){
-            //     this.$0 = this.$0.parentElement;
-            //     //if(typeof $0 !== 'undefined') $0 = this.currentEl;
-            //     return this.$0;
-            // }else if(token.endsWith(']')){
-            //     const posOfOpen = token.indexOf('[');
-            //     const indxString = token.substring(posOfOpen + 1, token.length - 1);
-            //     idx = parseInt(indxString);
-            //     nonIndexedToken = token.substring(0, posOfOpen);
-            // }
-            // //const children = this.$0.querySelectorAll(':scope > ' + nonIndexedToken);
-            // const matchingNodes = [];
-            // this.children.forEach((child : HTMLElement) =>{
-            //     if(child.matches && child.matches(nonIndexedToken)){
-            //         matchingNodes.push(child);
-            //     }
-            // })
-
-            //this.$0 = matchingNodes[idx] as HTMLElement;
-            this.$0 = this.getChildFromSinglePath(this.$0, token);
-           
-        })
+        }
+        this.$0 = cd(this.$0, path, this.pathHistory);
         return this.$0;
     }
 
-    static getChildFromSinglePath(el: HTMLElement, token: string){
-        let idx = 0;
-        let nonIndexedToken = token;
-        if(token === '..'){
-            // this.$0 = this.$0.parentElement;
-            // return this.$0;
-            return e.parentNode;
-        }
-        if(token.endsWith(']')){
-            const posOfOpen = token.indexOf('[');
-            const indxString = token.substring(posOfOpen + 1, token.length - 1);
-            idx = parseInt(indxString);
-            nonIndexedToken = token.substring(0, posOfOpen);
-        }
-        //const children = this.$0.querySelectorAll(':scope > ' + nonIndexedToken);
-        const matchingNodes = [];
-        this.getChildren(el).forEach((child : HTMLElement) =>{
-            if(child.matches && child.matches(nonIndexedToken)){
-                matchingNodes.push(child);
-            }
-        })
 
-        return  matchingNodes[idx] as HTMLElement;
-    }
     static getChildren(parent: HTMLElement){
         switch(parent.nodeName){
             case 'IFRAME':
@@ -159,7 +109,7 @@ class $hell{
         const observedAttributes = ce['observedAttributes'] as string[];
         if(observedAttributes){
             observedAttributes.forEach(attrib =>{
-                const camelCase = this.dashToCamelCase(attrib);
+                const camelCase = dashToCamelCase(attrib);
                 props[camelCase] = true;
             })
         }
@@ -197,7 +147,7 @@ class $hell{
         const list = this.getList(this.getChildren(parent));
         let path = '';
         list.forEach(token =>{
-            const testEl = this.getChildFromSinglePath(parent, token);
+            const testEl = getChildFromSinglePath(parent, token);
             if(testEl === el){
                 path = token;
             }
