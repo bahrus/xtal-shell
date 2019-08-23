@@ -3,6 +3,7 @@ import { getChildFromSinglePath } from './getChildFromSinglePath.js';
 import { cd } from './cd.js';
 import { dashToCamelCase } from './dashToCamelCase.js';
 const idSym = Symbol('iframeId');
+window[idSym] = 'self';
 const allWindows = Array.from(document.head.querySelectorAll('iframe')).map(iframe => {
     iframe[idSym] = iframe.id;
     return iframe.contentWindow;
