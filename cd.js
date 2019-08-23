@@ -11,4 +11,3 @@ export function cd(el, path, pathHistory) {
     });
     return ctx;
 }
-//# sourceMappingURL=cd.js.map

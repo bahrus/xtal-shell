@@ -18,4 +18,3 @@ function getEls(container) {
     }
 }
 getEls(document.body);
-//# sourceMappingURL=getAllCE.js.map

@@ -10,4 +10,3 @@ _$hell['load'] = () => {
     script.src = baseHref + '/$hell.js';
     document.head.appendChild(script);
 };
-//# sourceMappingURL=import$hell.js.map

@@ -16,4 +16,3 @@ export function getChildren(parent) {
             return returnObj;
     }
 }
-//# sourceMappingURL=getChildren.js.map

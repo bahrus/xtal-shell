@@ -22,4 +22,3 @@ export function getChildFromSinglePath(el, token) {
     });
     return matchingNodes[idx];
 }
-//# sourceMappingURL=getChildFromSinglePath.js.map
