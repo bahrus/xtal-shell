@@ -2,6 +2,7 @@ import { getChildren } from "./getChildren.js";
 import { getChildFromSinglePath } from "./getChildFromSinglePath.js";
 import { cd } from "./cd.js";
 import { dashToCamelCase } from "./dashToCamelCase.js";
+import { PetaliaConnector } from './PetaliaConnector.js';
 const idSym = Symbol("iframeId");
 window[idSym] = "self";
 const allWindows = Array.from(document.head.querySelectorAll("iframe"))
@@ -26,13 +27,7 @@ class $hell {
         return this.$0;
     }
     static connect(el1, el0) {
-        const de = el1.dispatchEvent.bind(el1);
-        el1.dispatchEvent = e => {
-            console.log(`
-<p-d on=${e.type} ></p-d>
-      `);
-            return de(e);
-        };
+        const pc = new PetaliaConnector(el1, el0);
     }
     static get children() {
         // switch(this.$0.nodeName){
