@@ -17,8 +17,13 @@ export class PetaliaConnector {
             return de(e);
         };
     }
+    camelToSnake(string) {
+        return string.replace(/[\w]([A-Z])/g, function (m) {
+            return m[0] + "-" + m[1];
+        }).toLowerCase();
+    }
     set destProp(val) {
-        const lispCase = val; //todo
+        const lispCase = this.camelToSnake(val);
         this._destProp = lispCase;
         if (!this.el0.hasAttribute('-' + lispCase)) {
             console.log('Please remember to add attribute ' + '-' + lispCase + ' to ' + this.el0.localName);

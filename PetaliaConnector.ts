@@ -1,5 +1,10 @@
 import {$hell} from './$hell.js';
 export class PetaliaConnector{
+    camelToSnake(string) {
+        return string.replace(/[\w]([A-Z])/g, function(m) {
+            return m[0] + "-" + m[1];
+        }).toLowerCase();
+    }
     destProps: {[key: string]: string} = {};
     constructor(public el1: HTMLElement, public el0: HTMLElement){
         const props = $hell.getProperties(el0);
@@ -16,7 +21,7 @@ export class PetaliaConnector{
     }
     _destProp: string = 'please specify destProp';
     set destProp(val){
-        const lispCase = val;//todo
+        const lispCase = this.camelToSnake(val);
         this._destProp = lispCase;
         if(!this.el0.hasAttribute('-' + lispCase)){
             console.log('Please remember to add attribute ' + '-' + lispCase + ' to ' + this.el0.localName);
