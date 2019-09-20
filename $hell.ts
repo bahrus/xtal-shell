@@ -12,7 +12,7 @@ const allWindows = Array.from(document.head.querySelectorAll("iframe"))
     return iframe.contentWindow;
   })
   .concat(window);
-class $hell {
+export class $hell {
   static $0: HTMLElement;
   static pathHistory: string[] = [];
   static get pwd() {
@@ -32,7 +32,7 @@ class $hell {
 
   static connect(el1: HTMLElement, el0: HTMLElement) {
     const pc = new PetaliaConnector(el1, el0);
-
+    return pc;
   }
 
   static get children() {
