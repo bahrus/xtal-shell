@@ -16,7 +16,11 @@ export class PetaliaConnector{
     }
     _destProp: string = 'please specify destProp';
     set destProp(val){
-        this._destProp = val;
+        const lispCase = val;//todo
+        this._destProp = lispCase;
+        if(!this.el0.hasAttribute('-' + lispCase)){
+            console.log('Please remember to add attribute ' + '-' + lispCase + ' to ' + this.el0.localName);
+        }
     }
     get destProp(){
         return this._destProp;
