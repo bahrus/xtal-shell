@@ -1,27 +1,38 @@
-import { getChildren } from './getChildren.js';
-import { getChildFromSinglePath } from './getChildFromSinglePath.js';
-import { cd } from './cd.js';
-import { dashToCamelCase } from './dashToCamelCase.js';
-const idSym = Symbol('iframeId');
-window[idSym] = 'self';
-const allWindows = Array.from(document.head.querySelectorAll('iframe')).map(iframe => {
+import { getChildren } from "./getChildren.js";
+import { getChildFromSinglePath } from "./getChildFromSinglePath.js";
+import { cd } from "./cd.js";
+import { dashToCamelCase } from "./dashToCamelCase.js";
+const idSym = Symbol("iframeId");
+window[idSym] = "self";
+const allWindows = Array.from(document.head.querySelectorAll("iframe"))
+    .map(iframe => {
     iframe[idSym] = iframe.id;
     return iframe.contentWindow;
-}).concat(window);
+})
+    .concat(window);
 class $hell {
     static get pwd() {
-        return this.pathHistory.join('/');
+        return this.pathHistory.join("/");
     }
     static initialize() {
         this.$0 = document.body;
-        this.pathHistory = [''];
+        this.pathHistory = [""];
     }
     static cd(path) {
-        if (!this.$0 || path.startsWith('/')) {
+        if (!this.$0 || path.startsWith("/")) {
             this.initialize();
         }
         this.$0 = cd(this.$0, path, this.pathHistory);
         return this.$0;
+    }
+    static connect(el1, el0) {
+        const de = el1.dispatchEvent.bind(el1);
+        el1.dispatchEvent = e => {
+            console.log(`
+<p-d on=${e.type} ></p-d>
+      `);
+            return de(e);
+        };
     }
     static get children() {
         // switch(this.$0.nodeName){
@@ -41,7 +52,7 @@ class $hell {
                 return;
             const nodeName = node.nodeName.toLowerCase();
             if (node.id) {
-                result.push(nodeName + '#' + node.id);
+                result.push(nodeName + "#" + node.id);
                 //return;
             }
             if (!matchingNodeNames[nodeName]) {
@@ -65,7 +76,7 @@ class $hell {
                 const matchingNode = matchingNodes[i];
                 if (matchingNode.id)
                     continue;
-                result.push(key + '[' + i + ']');
+                result.push(key + "[" + i + "]");
             }
         }
         return result;
@@ -84,29 +95,31 @@ class $hell {
         const tagName = el.tagName.toLowerCase();
         const ce = customElements.get(tagName);
         if (!ce) {
-            console.log('props only provides information for custom elements.');
+            console.log("props only provides information for custom elements.");
             return;
         }
         //if(!propertiesAlias) propertiesAlias = 'properties';
-        const props = ce['properties'] || {};
-        const observedAttributes = ce['observedAttributes'];
+        const props = ce["properties"] || {};
+        const observedAttributes = ce["observedAttributes"];
         if (observedAttributes) {
             observedAttributes.forEach(attrib => {
                 const camelCase = dashToCamelCase(attrib);
                 props[camelCase] = true;
             });
         }
-        Object.getOwnPropertyNames(el).map(name => name.replace('_', '')).forEach(name => {
+        Object.getOwnPropertyNames(el)
+            .map(name => name.replace("_", ""))
+            .forEach(name => {
             props[name] = true;
         });
         if (!props) {
-            console.log('No properties found');
+            console.log("No properties found");
         }
         const debugObj = {
-            constructor: ce,
+            constructor: ce
         };
         for (const key in props) {
-            const underScore = '_' + key;
+            const underScore = "_" + key;
             if (!this.$0[key] && this.$0[underScore]) {
                 debugObj[underScore] = this.$0[underScore];
             }
@@ -119,14 +132,14 @@ class $hell {
     static getParent(el) {
         const parent = el.parentNode;
         if (parent.nodeType === 11) {
-            return parent['host'];
+            return parent["host"];
         }
         return parent;
     }
     static getPathFromParent(el) {
         const parent = this.getParent(el);
         const list = this.getList(getChildren(parent));
-        let path = '';
+        let path = "";
         list.forEach(token => {
             const testEl = getChildFromSinglePath(parent, token);
             if (testEl === el) {
@@ -142,7 +155,7 @@ class $hell {
             const path = this.getPathFromParent(ancestor);
             reversePathArray.push(path);
             ancestor = this.getParent(ancestor);
-            if (ancestor.tagName === 'BODY') {
+            if (ancestor.tagName === "BODY") {
                 const fe = ancestor.ownerDocument.defaultView.frameElement;
                 if (fe) {
                     ancestor = fe;
@@ -150,25 +163,25 @@ class $hell {
             }
         }
         reversePathArray.reverse();
-        return '/' + reversePathArray.join('/');
+        return "/" + reversePathArray.join("/");
     }
     static get stores() {
         const returnObj = {};
         Array.from(allWindows).forEach(win => {
             returnObj[win[idSym]] = win.history.state;
         });
-        console.log('stores', returnObj);
+        console.log("stores", returnObj);
         return returnObj;
     }
 }
 $hell.pathHistory = [];
-window['$hell'] = $hell;
+window["$hell"] = $hell;
 Array.from(allWindows).forEach(win => {
-    win.addEventListener('history-state-update', e => {
-        console.log('history-changed', e.target[idSym], e.detail);
+    win.addEventListener("history-state-update", e => {
+        console.log("history-changed", e.target[idSym], e.detail);
     });
-    win.addEventListener('popstate', e => {
-        console.log('popstate', e.target[idSym], e.detail);
+    win.addEventListener("popstate", e => {
+        console.log("popstate", e.target[idSym], e.detail);
     });
     $hell.stores;
 });
