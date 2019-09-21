@@ -11,8 +11,9 @@ export class PetaliaConnector {
         }
         const de = el1.dispatchEvent.bind(el1);
         el1.dispatchEvent = e => {
+            console.log('Evt', e);
             console.log(`
-    <p-d on=${e.type} to=${el0.localName}[-${this._destProp}] ></p-d>
+    <p-d on=${e.type} to=${el0.localName}[-${this._destProp}] val=pleaseProvideFromEvt m=1 skip-init></p-d>
           `);
             return de(e);
         };
