@@ -36,7 +36,7 @@ export class $hell {
     const de = el.dispatchEvent.bind(el);
     el.dispatchEvent = e => {
         console.log(e);
-        return de(el);
+        return de(e);
     }
   }
 
