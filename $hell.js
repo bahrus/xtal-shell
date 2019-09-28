@@ -26,6 +26,15 @@ export class $hell {
         this.$0 = cd(this.$0, path, this.pathHistory);
         return this.$0;
     }
+    static monitor(el) {
+        if (!el)
+            el = this.$0;
+        const de = el.dispatchEvent.bind(el);
+        el.dispatchEvent = e => {
+            console.log(e);
+            return de(el);
+        };
+    }
     static connect(el1, el0) {
         const pc = new PetaliaConnector(el1, el0);
         return pc;

@@ -4,6 +4,7 @@ import { cd } from "./cd.js";
 import { dashToCamelCase } from "./dashToCamelCase.js";
 import {PetaliaConnector} from './PetaliaConnector.js';
 
+
 const idSym = Symbol("iframeId");
 window[idSym] = "self";
 const allWindows = Array.from(document.head.querySelectorAll("iframe"))
@@ -29,6 +30,16 @@ export class $hell {
     this.$0 = cd(this.$0, path, this.pathHistory);
     return this.$0;
   }
+
+  static monitor(el?: HTMLElement){
+    if(!el) el = this.$0;
+    const de = el.dispatchEvent.bind(el);
+    el.dispatchEvent = e => {
+        console.log(e);
+        return de(el);
+    }
+  }
+
 
   static connect(el1: HTMLElement, el0: HTMLElement) {
     const pc = new PetaliaConnector(el1, el0);

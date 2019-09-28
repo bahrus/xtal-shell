@@ -3,7 +3,6 @@ export function getChildren(parent) {
         case 'IFRAME':
             return this.$0.contentWindow.document.body.childNodes;
         default:
-            const publicChildren = parent.childNodes;
             const returnObj = [];
             if (parent.shadowRoot) {
                 parent.shadowRoot.childNodes.forEach((node) => {
