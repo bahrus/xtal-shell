@@ -6,7 +6,7 @@ export function getChildFromSinglePath(el: HTMLElement, token: string){
     if(token === '..'){
         // this.$0 = this.$0.parentElement;
         // return this.$0;
-        return el.parentNode;
+        return el.parentNode !== null ? el.parentNode : (<any>el).host;
     }
     if(token.endsWith(']')){
         const posOfOpen = token.indexOf('[');
