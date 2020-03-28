@@ -1,7 +1,7 @@
 import { getChildFromSinglePath } from './getChildFromSinglePath.js';
 export function cd(el, path, pathHistory) {
     const splitPath = path.split('/');
-    let ctx = el;
+    let ctx = path.startsWith('/') ? document.body : el;
     splitPath.forEach(token => {
         if (!token)
             return;
