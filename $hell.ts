@@ -140,7 +140,7 @@ export class $hell {
     return debugObj;
   }
 
-  static getParent(el: HTMLElement) {
+  static getParent(el: Element) {
     const parent = el.parentNode as HTMLElement;
     if (parent.nodeType === 11) {
       return parent["host"];
@@ -148,7 +148,7 @@ export class $hell {
     return parent;
   }
 
-  static getPathFromParent(el: HTMLElement) {
+  static getPathFromParent(el: Element) {
     const parent = this.getParent(el);
     const list = this.getList(getChildren(parent));
     let path = "";
@@ -161,7 +161,7 @@ export class $hell {
     return path;
   }
 
-  static getFullPath(el: HTMLElement) {
+  static getFullPath(el: Element) {
     const reversePathArray = [];
     let ancestor = el;
     while (ancestor.tagName !== "BODY") {
@@ -171,7 +171,7 @@ export class $hell {
       if (ancestor.tagName === "BODY") {
         const fe = ancestor.ownerDocument.defaultView.frameElement;
         if (fe) {
-          ancestor = fe as HTMLElement;
+          ancestor = fe as Element;
         }
       }
     }
