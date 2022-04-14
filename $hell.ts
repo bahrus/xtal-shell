@@ -63,7 +63,11 @@ export class $hell {
       if (!node.matches) return;
       const nodeName = node.nodeName.toLowerCase();
       if (node.id) {
-        result.push(nodeName + "#" + node.id);
+        let id = node.id;
+        if(id.includes('[') || id.includes(']') || id.includes('#') || id.includes('/')){
+          id = '"' + id + '"';
+        }
+        result.push(nodeName + "#" + id);
         //return;
       }
       if (!matchingNodeNames[nodeName]) {

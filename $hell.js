@@ -12,6 +12,8 @@ const allWindows = Array.from(document.head.querySelectorAll("iframe"))
 })
     .concat(window);
 export class $hell {
+    static $0;
+    static pathHistory = [];
     static get pwd() {
         return this.pathHistory.join("/");
     }
@@ -57,7 +59,11 @@ export class $hell {
                 return;
             const nodeName = node.nodeName.toLowerCase();
             if (node.id) {
-                result.push(nodeName + "#" + node.id);
+                let id = node.id;
+                if (id.includes('[') || id.includes(']') || id.includes('#') || id.includes('/')) {
+                    id = '"' + id + '"';
+                }
+                result.push(nodeName + "#" + id);
                 //return;
             }
             if (!matchingNodeNames[nodeName]) {
@@ -179,7 +185,6 @@ export class $hell {
         return returnObj;
     }
 }
-$hell.pathHistory = [];
 window["$hell"] = $hell;
 Array.from(allWindows).forEach(win => {
     win.addEventListener("history-state-update", e => {

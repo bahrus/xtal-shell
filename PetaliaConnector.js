@@ -1,10 +1,16 @@
 import { $hell } from './$hell.js';
 export class PetaliaConnector {
+    el1;
+    el0;
+    camelToSnake(string) {
+        return string.replace(/[\w]([A-Z])/g, function (m) {
+            return m[0] + "-" + m[1];
+        }).toLowerCase();
+    }
+    destProps = {};
     constructor(el1, el0) {
         this.el1 = el1;
         this.el0 = el0;
-        this.destProps = {};
-        this._destProp = 'please specify destProp';
         const props = $hell.getProperties(el0);
         for (const key in props) {
             this.destProps[key] = key;
@@ -18,11 +24,7 @@ export class PetaliaConnector {
             return de(e);
         };
     }
-    camelToSnake(string) {
-        return string.replace(/[\w]([A-Z])/g, function (m) {
-            return m[0] + "-" + m[1];
-        }).toLowerCase();
-    }
+    _destProp = 'please specify destProp';
     set destProp(val) {
         const lispCase = this.camelToSnake(val);
         this._destProp = lispCase;
