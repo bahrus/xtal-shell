@@ -33,4 +33,3 @@ export function getChildFromSinglePath(el: HTMLElement, token: string){
     return  matchingNodes[idx] as HTMLElement;
 }
 
-export function substrBefore(s: string, search: string, last = false){

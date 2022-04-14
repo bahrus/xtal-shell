@@ -32,5 +32,3 @@ export function getChildFromSinglePath(el, token) {
     });
     return matchingNodes[idx];
 }
-export function substrBefore(s, search, last = false) {
-}
